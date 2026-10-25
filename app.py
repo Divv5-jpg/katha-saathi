@@ -392,18 +392,18 @@ def render_chat() -> None:
 
     if hasattr(st, "audio_input"):
         try:
-            recording = st.audio_input(
-                "Or record a voice message",
+            audio_bytes = st.audio_input(
+                "Speak your message",
                 sample_rate=16000,
                 key=f"companion_audio_input_{st.session_state.voice_input_generation}",
                 help="Your recording is sent to Sarvam to transcribe, then submitted as your chat message.",
             )
         except Exception:
-            recording = None
+            audio_bytes = None
             st.info("Voice recording is unavailable in this browser. You can type your message instead.")
 
-        if recording is not None:
-            recording_bytes = recording.getvalue()
+        if audio_bytes is not None:
+            recording_bytes = audio_bytes.getvalue()
             recording_key = hashlib.sha256(recording_bytes).hexdigest()
             if recording_key != st.session_state.processed_voice_recording:
                 st.session_state.processed_voice_recording = recording_key
@@ -411,9 +411,8 @@ def render_chat() -> None:
                 try:
                     transcript = speech_to_text(
                         get_client(),
-                        recording_bytes,
+                        audio_bytes,
                         LANGUAGES[st.session_state.language],
-                        filename=getattr(recording, "name", None) or "recording.wav",
                     )
                     send_message(transcript)
                     st.rerun()

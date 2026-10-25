@@ -79,6 +79,26 @@ class SarvamServiceTests(unittest.TestCase):
         )
         self.assertEqual(result, "నమస్కారం")
 
+    def test_speech_to_text_accepts_streamlit_uploaded_audio(self):
+        request = {}
+
+        def transcribe(**kwargs):
+            request.update(kwargs)
+            return SimpleNamespace(transcript="Hello there")
+
+        recording = SimpleNamespace(
+            getvalue=lambda: b"recorded audio",
+            name="recording.wav",
+            type="audio/wav",
+        )
+        result = speech_to_text(
+            SimpleNamespace(speech_to_text=SimpleNamespace(transcribe=transcribe)),
+            recording,
+            "en-IN",
+        )
+        self.assertEqual(result, "Hello there")
+        self.assertEqual(request["file"], ("recording.wav", b"recorded audio", "audio/wav"))
+
     def test_text_to_speech_decodes_sarvam_audio(self):
         import base64
 

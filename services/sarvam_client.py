@@ -153,17 +153,30 @@ def translate_story_beat(
 
 def speech_to_text(
     client: SarvamAI,
-    audio: bytes,
+    audio_file: Any,
     language_code: str,
-    filename: str = "recording.wav",
+    filename: str | None = None,
 ) -> str:
+    """Transcribe a Streamlit UploadedFile or raw audio bytes with Saaras v4."""
+    if isinstance(audio_file, bytes):
+        audio = audio_file
+        filename = filename or "recording.wav"
+        content_type = "audio/wav"
+    else:
+        try:
+            audio = audio_file.getvalue()
+        except AttributeError as exc:
+            raise SarvamServiceError("That recording could not be read. Please record it again.") from exc
+        filename = filename or getattr(audio_file, "name", None) or "recording.wav"
+        content_type = getattr(audio_file, "type", None) or "audio/wav"
+
     if not audio:
         raise SarvamServiceError("That audio file is empty. Please choose another recording.")
     if len(audio) > MAX_AUDIO_BYTES:
         raise SarvamServiceError("Please choose an audio recording smaller than 10 MB.")
     try:
         result = client.speech_to_text.transcribe(
-            file=(filename, audio, "audio/wav"),
+            file=(filename, audio, content_type),
             model="saaras:v4",
             language_code=language_code,
         )
