@@ -30,8 +30,12 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    :root { --cream:#fbf7ed; --green:#315b45; --deep:#234334; --terracotta:#b96f52; --ink:#26352c; }
+    :root { --cream:#FAF7F2; --green:#315b45; --deep:#234334; --terracotta:#b96f52; --ink:#2B2B2B; }
     .stApp { background:var(--cream); color:var(--ink); }
+    .stApp, .stApp p, .stApp label, .stApp .stMarkdown,
+    [data-testid="stChatMessage"], [data-testid="stChatMessage"] * {
+      color:var(--ink);
+    }
     [data-testid="stSidebar"] { background:#f1ead9; }
     .hero { background:linear-gradient(135deg,#e9f0df,#f7e8d8); border:1px solid #e4ddcc;
       border-radius:24px; padding:2rem; margin-bottom:1rem; }
