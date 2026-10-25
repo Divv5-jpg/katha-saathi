@@ -26,6 +26,13 @@ python -m unittest discover -s tests -v
 
 Deploy this repository and configure `SARVAM_API_KEY` in the app's **Settings → Secrets**. The app reads the secret server-side. Never put the key in source code or client-side settings.
 
+## Sarvam API references
+
+- [Getting started](https://docs.sarvam.ai/api/getting-started/welcome)
+- [Chat Completion V1](https://docs.sarvam.ai/api-reference/chat/chat-completions-v1) — `sarvam-105b-conversations`
+- [Speech-to-Text](https://docs.sarvam.ai/api-reference/speech-to-text/transcribe) — `saaras:v4`
+- [Text-to-Speech](https://docs.sarvam.ai/api-reference/text-to-speech/convert) — `bulbul:v3`
+
 ## Story source and review
 
 `data/panchatantra_stories.json` contains exactly five provisional, original retellings. No source document was supplied, so they are **not verified against a particular Panchatantra edition**. Before presenting them as source-verified, replace or review each story using a selected source and update `source_name`, `source_reference`, retelling, and `content_review_status`. The story library is local source material; the model is instructed not to invent or rewrite core events.
