@@ -1,4 +1,5 @@
 import json
+import hashlib
 
 import streamlit as st
 
@@ -15,8 +16,8 @@ from services.sarvam_client import (
     SarvamServiceError,
     chat_completion,
     create_client,
-    synthesize_speech,
-    transcribe_audio,
+    speech_to_text,
+    text_to_speech,
     translate_story_beat,
 )
 
@@ -62,10 +63,9 @@ def initialize_state() -> None:
         "story_beat_index": 0,
         "story_choices": [],
         "achievements": [],
-        "speech_enabled": False,
-        "voice_input_enabled": False,
-        "audio_reply": None,
-        "audio_reply_language": None,
+        "processed_voice_recording": None,
+        "voice_recording_error": None,
+        "audio_replies": {},
         "translated_story_beats": {},
     }
     for key, value in defaults.items():
@@ -81,8 +81,9 @@ def reset_conversation() -> None:
     st.session_state.story_last_response = None
     st.session_state.story_safety_paused = False
     st.session_state.achievements = []
-    st.session_state.audio_reply = None
-    st.session_state.audio_reply_language = None
+    st.session_state.processed_voice_recording = None
+    st.session_state.voice_recording_error = None
+    st.session_state.audio_replies = {}
     st.session_state.voice_transcript = None
     st.session_state.translated_story_beats = {}
 
@@ -142,8 +143,6 @@ def send_message(text: str) -> None:
             )
         history.append({"role": "assistant", "content": reply})
         del history[:-24]
-        st.session_state.audio_reply = reply
-        st.session_state.audio_reply_language = LANGUAGES[st.session_state.language]
     except SarvamServiceError as exc:
         history.append(
             {
@@ -347,9 +346,33 @@ def render_story_mode(stories: list[dict]) -> None:
 def render_chat() -> None:
     st.title("Your companion")
     st.caption("Share a little, share a lot, or simply ask for a story. You are in charge.")
-    for item in st.session_state.messages:
+    for message_index, item in enumerate(st.session_state.messages):
         with st.chat_message(item["role"]):
             st.write(item["content"])
+            if item["role"] == "assistant":
+                audio_key = hashlib.sha256(
+                    f"{LANGUAGES[st.session_state.language]}:{item['content']}".encode("utf-8")
+                ).hexdigest()
+                if st.button(
+                    "🔊 Read Aloud",
+                    key=f"read_aloud_{message_index}_{audio_key}",
+                ):
+                    try:
+                        with st.spinner("Preparing audio…"):
+                            st.session_state.audio_replies[audio_key] = text_to_speech(
+                                get_client(),
+                                item["content"],
+                                LANGUAGES[st.session_state.language],
+                            )
+                    except SarvamServiceError as exc:
+                        st.warning(f"Read-aloud is unavailable right now: {exc}")
+                    except Exception:
+                        st.info("Audio playback is unavailable in this browser. You can still read the reply.")
+                if audio_key in st.session_state.audio_replies:
+                    try:
+                        st.audio(st.session_state.audio_replies[audio_key], format="audio/mpeg")
+                    except Exception:
+                        st.info("Audio playback is unavailable in this browser. You can still read the reply.")
     transcript = st.session_state.get("voice_transcript")
     if transcript:
         st.info(f"Voice transcript: {transcript}")
@@ -365,42 +388,42 @@ def render_chat() -> None:
         send_message(message)
         st.rerun()
 
-    if st.session_state.voice_input_enabled:
-        with st.expander("Optional voice input"):
-            audio_file = st.file_uploader(
-                "Choose a short audio recording (up to 10 MB)",
-                type=["wav", "mp3", "m4a", "aac", "ogg", "flac", "webm", "mp4"],
-                key="voice_upload",
+    if hasattr(st, "audio_input"):
+        try:
+            recording = st.audio_input(
+                "Or record a voice message",
+                sample_rate=16000,
+                key="companion_audio_input",
+                help="Your recording is sent to Sarvam to transcribe, then submitted as your chat message.",
             )
-            if st.button("Transcribe recording", disabled=audio_file is None):
+        except Exception:
+            recording = None
+            st.info("Voice recording is unavailable in this browser. You can type your message instead.")
+
+        if recording is not None:
+            recording_bytes = recording.getvalue()
+            recording_key = hashlib.sha256(recording_bytes).hexdigest()
+            if recording_key != st.session_state.processed_voice_recording:
+                st.session_state.processed_voice_recording = recording_key
+                st.session_state.voice_recording_error = None
                 try:
-                    result = transcribe_audio(
+                    transcript = speech_to_text(
                         get_client(),
-                        audio_file.name,
-                        audio_file.getvalue(),
+                        recording_bytes,
                         LANGUAGES[st.session_state.language],
+                        filename=getattr(recording, "name", None) or "recording.wav",
                     )
-                    st.session_state.voice_transcript = result
+                    send_message(transcript)
                     st.rerun()
                 except SarvamServiceError as exc:
-                    st.warning(f"Voice input is unavailable: {exc} You can type instead.")
-
-    if st.session_state.speech_enabled:
-        latest_reply = next(
-            (item["content"] for item in reversed(st.session_state.messages) if item["role"] == "assistant"),
-            None,
-        )
-        if latest_reply and st.button("🔊 Read the latest reply aloud"):
-            try:
-                with st.spinner("Preparing audio…"):
-                    audio = synthesize_speech(
-                        get_client(),
-                        latest_reply,
-                        st.session_state.audio_reply_language or LANGUAGES[st.session_state.language],
-                    )
-                st.audio(audio, format="audio/mp3")
-            except SarvamServiceError as exc:
-                st.warning(f"Read-aloud is unavailable right now: {exc}")
+                    st.session_state.voice_recording_error = str(exc)
+            if st.session_state.voice_recording_error:
+                st.warning(
+                    "I couldn't use that recording. You can record again or type your message. "
+                    + st.session_state.voice_recording_error
+                )
+    else:
+        st.info("Voice recording isn't supported by this Streamlit version. You can type your message instead.")
 
 
 def render_wins() -> None:
@@ -431,8 +454,6 @@ def render_settings() -> None:
         "Choose the language that feels comfortable and an age band for simpler or more detailed "
         "words. You do not need to share your name, school, address, or other identifying details."
     )
-    st.toggle("Enable optional voice input", key="voice_input_enabled")
-    st.toggle("Offer read-aloud controls", key="speech_enabled")
     st.caption(
         "Conversation, story position, and little wins are kept in Streamlit's current session only. "
         "Messages are sent to Sarvam AI to generate replies; this app does not save them to a child profile."

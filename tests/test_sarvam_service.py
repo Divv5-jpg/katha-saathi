@@ -3,7 +3,12 @@ import unittest
 from types import SimpleNamespace
 
 from app_logic import load_stories
-from services.sarvam_client import chat_completion, translate_story_beat
+from services.sarvam_client import (
+    chat_completion,
+    speech_to_text,
+    text_to_speech,
+    translate_story_beat,
+)
 
 
 class FakeChat:
@@ -57,6 +62,39 @@ class SarvamServiceTests(unittest.TestCase):
         )
         self.assertEqual(result["choices"][0]["id"], beat["choices"][0]["id"])
         self.assertEqual(fake_chat.request["response_format"], {"type": "json_object"})
+
+    def test_speech_to_text_uses_sarvam_transcription_endpoint(self):
+        stt = SimpleNamespace(
+            transcribe=lambda **kwargs: (
+                self.assertEqual(kwargs["model"], "saaras:v4"),
+                self.assertEqual(kwargs["language_code"], "te-IN"),
+                self.assertEqual(kwargs["file"][0], "recording.wav"),
+                SimpleNamespace(transcript="నమస్కారం"),
+            )[-1]
+        )
+        result = speech_to_text(
+            SimpleNamespace(speech_to_text=stt),
+            b"wav audio",
+            "te-IN",
+        )
+        self.assertEqual(result, "నమస్కారం")
+
+    def test_text_to_speech_decodes_sarvam_audio(self):
+        import base64
+
+        tts = SimpleNamespace(
+            convert=lambda **kwargs: (
+                self.assertEqual(kwargs["model"], "bulbul:v3"),
+                self.assertEqual(kwargs["language_code"], "en-IN"),
+                SimpleNamespace(audios=[base64.b64encode(b"mp3 audio").decode("ascii")]),
+            )[-1]
+        )
+        result = text_to_speech(
+            SimpleNamespace(text_to_speech=tts),
+            "Hello there.",
+            "en-IN",
+        )
+        self.assertEqual(result, b"mp3 audio")
 
 
 if __name__ == "__main__":

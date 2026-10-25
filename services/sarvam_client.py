@@ -151,11 +151,11 @@ def translate_story_beat(
         raise _safe_error(exc) from None
 
 
-def transcribe_audio(
+def speech_to_text(
     client: SarvamAI,
-    filename: str,
     audio: bytes,
     language_code: str,
+    filename: str = "recording.wav",
 ) -> str:
     if not audio:
         raise SarvamServiceError("That audio file is empty. Please choose another recording.")
@@ -163,7 +163,7 @@ def transcribe_audio(
         raise SarvamServiceError("Please choose an audio recording smaller than 10 MB.")
     try:
         result = client.speech_to_text.transcribe(
-            file=(filename, audio, None),
+            file=(filename, audio, "audio/wav"),
             model="saaras:v4",
             language_code=language_code,
         )
@@ -177,7 +177,7 @@ def transcribe_audio(
         raise _safe_error(exc) from None
 
 
-def synthesize_speech(client: SarvamAI, text: str, language_code: str) -> bytes:
+def text_to_speech(client: SarvamAI, text: str, language_code: str) -> bytes:
     if not text.strip():
         raise SarvamServiceError("There is no reply to read aloud yet.")
     try:
@@ -196,3 +196,16 @@ def synthesize_speech(client: SarvamAI, text: str, language_code: str) -> bytes:
         raise SarvamServiceError("Sarvam returned audio that could not be played.") from None
     except Exception as exc:
         raise _safe_error(exc) from None
+
+
+def transcribe_audio(
+    client: SarvamAI,
+    filename: str,
+    audio: bytes,
+    language_code: str,
+) -> str:
+    return speech_to_text(client, audio, language_code, filename)
+
+
+def synthesize_speech(client: SarvamAI, text: str, language_code: str) -> bytes:
+    return text_to_speech(client, text, language_code)
