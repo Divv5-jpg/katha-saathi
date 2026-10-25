@@ -65,6 +65,7 @@ def initialize_state() -> None:
         "achievements": [],
         "processed_voice_recording": None,
         "voice_recording_error": None,
+        "voice_input_generation": 0,
         "audio_replies": {},
         "translated_story_beats": {},
     }
@@ -83,6 +84,7 @@ def reset_conversation() -> None:
     st.session_state.achievements = []
     st.session_state.processed_voice_recording = None
     st.session_state.voice_recording_error = None
+    st.session_state.voice_input_generation += 1
     st.session_state.audio_replies = {}
     st.session_state.voice_transcript = None
     st.session_state.translated_story_beats = {}
@@ -393,7 +395,7 @@ def render_chat() -> None:
             recording = st.audio_input(
                 "Or record a voice message",
                 sample_rate=16000,
-                key="companion_audio_input",
+                key=f"companion_audio_input_{st.session_state.voice_input_generation}",
                 help="Your recording is sent to Sarvam to transcribe, then submitted as your chat message.",
             )
         except Exception:
@@ -422,6 +424,13 @@ def render_chat() -> None:
                     "I couldn't use that recording. You can record again or type your message. "
                     + st.session_state.voice_recording_error
                 )
+                if st.button(
+                    "Retry this recording",
+                    key=f"retry_voice_{recording_key}",
+                ):
+                    st.session_state.processed_voice_recording = None
+                    st.session_state.voice_recording_error = None
+                    st.rerun()
     else:
         st.info("Voice recording isn't supported by this Streamlit version. You can type your message instead.")
 
