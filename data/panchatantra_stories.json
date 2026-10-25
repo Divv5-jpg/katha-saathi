@@ -1,0 +1,197 @@
+[
+  {
+    "story_id": "monkey_crocodile",
+    "title": "The Monkey and the Crocodile",
+    "source_name": "Provisional Panchatantra-inspired retelling; source document not supplied",
+    "source_reference": null,
+    "original_story_text": "A monkey lived in a tree by a river and shared fruit with a crocodile. The crocodile's wife asked him to bring the monkey to her. The crocodile carried the monkey across the river and told him of the plan. The monkey stayed calm and said his heart was in the tree. When they returned, the monkey climbed to safety. This retelling is provisional and does not reproduce a particular edition.",
+    "short_summary": "A monkey uses quick thinking to escape a crocodile's betrayal, after a friendship becomes unsafe.",
+    "central_values": ["trust", "quick thinking", "friendship", "personal safety"],
+    "possible_real_life_dilemmas": ["A friend asks for something that feels unsafe", "Feeling torn when someone breaks trust", "Finding help when a situation changes"],
+    "positive_behaviours_to_recognize": ["Noticing when something feels unsafe", "Asking a trusted person for help", "Thinking calmly under pressure"],
+    "alternative_choices": ["Pause and ask a safe adult for help", "Set a boundary and move to a safer place", "Talk about how trust might be rebuilt only if it feels safe"],
+    "reflection_questions": ["What helped the monkey notice the danger?", "Who could help you feel safe if a friendship felt confusing?"],
+    "interactive_story_beats": [
+      {
+        "passage": "By a wide river, a monkey shared ripe fruit with a crocodile. Over time, they began to trust one another.",
+        "decision_point": "The crocodile invites the monkey across the river. What might the monkey do?",
+        "choices": [
+          {"id": "ask", "label": "Ask where they are going and think it over.", "consequence": "The monkey takes a moment to understand the plan before deciding."},
+          {"id": "go", "label": "Go along, because they have been friends.", "consequence": "The monkey begins the crossing, still expecting a friendly visit."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": 1
+      },
+      {
+        "passage": "Halfway across, the crocodile admits that the invitation was not what it seemed. The monkey has to think quickly while staying as calm as possible.",
+        "decision_point": "What could help the monkey get to a safer place?",
+        "choices": [
+          {"id": "calm", "label": "Stay calm and look for a way back to the tree.", "consequence": "The monkey uses a quick idea to return to the riverbank and climbs out of reach."},
+          {"id": "call", "label": "Call loudly for help from the riverbank.", "consequence": "The noise draws attention, giving the monkey a chance to get help and move away."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": null
+      }
+    ],
+    "ending_options": ["Pause here and talk about trust.", "Try another story.", "Return to the companion."],
+    "age_adaptation_notes": "For younger children, emphasize noticing unsafe situations and getting help; do not suggest that a child must solve danger alone.",
+    "cultural_context": "A widely retold animal fable associated with Panchatantra traditions; plot details vary among tellings.",
+    "content_review_status": "PROVISIONAL — not checked against a supplied source edition; review locally before presenting as a verified adaptation."
+  },
+  {
+    "story_id": "lion_rabbit",
+    "title": "The Lion and the Clever Rabbit",
+    "source_name": "Provisional Panchatantra-inspired retelling; source document not supplied",
+    "source_reference": null,
+    "original_story_text": "A powerful lion frightened the animals in a forest. A small rabbit went to meet him and used a reflection in a well to make the lion think another lion was there. In the familiar ending, the lion jumps into the well. This provisional retelling keeps the central clever escape but does not endorse putting oneself in danger; children can seek help from safe adults.",
+    "short_summary": "A small rabbit finds a clever way to respond to a frightening problem caused by a powerful lion.",
+    "central_values": ["courage", "intelligence", "creative problem-solving", "seeking safety"],
+    "possible_real_life_dilemmas": ["Feeling small when a problem seems big", "Seeing someone treated unfairly", "Deciding when to get help"],
+    "positive_behaviours_to_recognize": ["Naming a worry", "Thinking of more than one safe option", "Getting help rather than facing danger alone"],
+    "alternative_choices": ["Ask a trusted adult to help", "Think with others about a safe solution", "Step away from a dangerous situation"],
+    "reflection_questions": ["What made the problem feel difficult for the rabbit?", "When is it safer to ask someone for help?"],
+    "interactive_story_beats": [
+      {
+        "passage": "In a forest, a lion's strength frightened the other animals. A small rabbit was asked to speak with him.",
+        "decision_point": "The rabbit feels nervous. What could the rabbit do first?",
+        "choices": [
+          {"id": "plan", "label": "Pause and think of a safe plan.", "consequence": "A pause gives the rabbit time to notice choices beyond rushing ahead."},
+          {"id": "help", "label": "Ask another animal for help.", "consequence": "The rabbit does not have to carry the worry alone; the animals can think together."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": 1
+      },
+      {
+        "passage": "The rabbit notices a well nearby. The rabbit considers how a reflection could change what the lion believes, while the other animals wait in hope.",
+        "decision_point": "What would be a thoughtful next step?",
+        "choices": [
+          {"id": "explain", "label": "Use the reflection as a clever distraction.", "consequence": "The lion follows the reflection and the animals get a chance to move to safety."},
+          {"id": "safety", "label": "Find a safer way with help from the animals.", "consequence": "The group makes safety their first priority and faces the problem together."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": null
+      }
+    ],
+    "ending_options": ["Pause and notice the rabbit's choices.", "Choose a different path.", "Return to the companion."],
+    "age_adaptation_notes": "Never frame confronting a bully or dangerous person alone as the brave choice. Praise help-seeking as courage.",
+    "cultural_context": "A popular animal fable retold in many collections; the well episode and its framing can vary.",
+    "content_review_status": "PROVISIONAL — not checked against a supplied source edition; review locally before presenting as a verified adaptation."
+  },
+  {
+    "story_id": "tortoise_geese",
+    "title": "The Tortoise and the Geese",
+    "source_name": "Provisional Panchatantra-inspired retelling; source document not supplied",
+    "source_reference": null,
+    "original_story_text": "A tortoise wanted to travel with two geese. They carried a stick between them and asked the tortoise to hold it with its mouth and stay quiet. When people below called out, the tortoise opened its mouth to answer and fell. This provisional retelling invites reflection about pausing before reacting, without suggesting that silence is always the right choice.",
+    "short_summary": "A tortoise's wish to answer quickly interrupts a plan that required patience.",
+    "central_values": ["patience", "self-control", "listening", "thinking before reacting"],
+    "possible_real_life_dilemmas": ["Wanting to answer during an argument", "Pausing when upset", "Speaking up when something is important"],
+    "positive_behaviours_to_recognize": ["Taking a breath before replying", "Listening to understand", "Choosing to speak up when safety or fairness matters"],
+    "alternative_choices": ["Pause for a breath, then choose what to say", "Ask for a moment to think", "Speak up and seek help if someone may be unsafe"],
+    "reflection_questions": ["What made it hard for the tortoise to wait?", "When can a pause help, and when is it important to speak?"],
+    "interactive_story_beats": [
+      {
+        "passage": "A tortoise wanted to travel with two geese. They found a way to carry the tortoise, but the plan needed everyone to wait until they landed.",
+        "decision_point": "What might help the tortoise remember the plan?",
+        "choices": [
+          {"id": "remember", "label": "Repeat the plan quietly before starting.", "consequence": "The tortoise reminds himself what the group agreed to do."},
+          {"id": "ask", "label": "Ask the geese to explain the plan once more.", "consequence": "The group checks that everyone understands before setting off."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": 1
+      },
+      {
+        "passage": "As they travel, people below call out. The tortoise wants to answer right away, even though the group is still in the air.",
+        "decision_point": "What could the tortoise do with that strong urge to reply?",
+        "choices": [
+          {"id": "pause", "label": "Pause and wait until landing.", "consequence": "The tortoise waits, lands safely, and can talk with the geese afterward."},
+          {"id": "speak", "label": "Speak up if something important or unsafe is happening.", "consequence": "The tortoise chooses to speak when it matters, and the group works together to land safely."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": null
+      }
+    ],
+    "ending_options": ["Reflect on pausing and speaking up.", "Try a different story.", "Return to the companion."],
+    "age_adaptation_notes": "Balance self-control with the child's right to speak, ask questions, and report unsafe situations.",
+    "cultural_context": "An animal fable often retold as a caution about impulsive speech; versions and morals differ.",
+    "content_review_status": "PROVISIONAL — not checked against a supplied source edition; review locally before presenting as a verified adaptation."
+  },
+  {
+    "story_id": "blue_jackal",
+    "title": "The Blue Jackal",
+    "source_name": "Provisional Panchatantra-inspired retelling; source document not supplied",
+    "source_reference": null,
+    "original_story_text": "A jackal fell into a vat of blue dye and looked unlike the other animals. The jackal claimed to be a ruler sent to lead them. Later, hearing other jackals call, the blue jackal answered in its familiar voice and the animals learned the truth. This provisional retelling focuses on honesty and accountability, not shame about appearance or identity.",
+    "short_summary": "A jackal's disguise helps it gain power for a while, but pretending to be someone else breaks trust.",
+    "central_values": ["honesty", "identity", "accountability", "trust"],
+    "possible_real_life_dilemmas": ["Being afraid to admit a mistake", "Pretending to fit in", "Repairing trust after misleading someone"],
+    "positive_behaviours_to_recognize": ["Telling the truth about what happened", "Taking responsibility for an action", "Making a repair without self-insults"],
+    "alternative_choices": ["Tell a trusted person what happened", "Correct a misunderstanding", "Offer a realistic way to repair harm"],
+    "reflection_questions": ["What might make someone pretend to be different?", "What could help repair trust after a mistake?"],
+    "interactive_story_beats": [
+      {
+        "passage": "A jackal accidentally fell into a vat of blue dye. When the animals saw the unusual color, the jackal had a choice about what to say.",
+        "decision_point": "How could the jackal respond to the animals' questions?",
+        "choices": [
+          {"id": "truth", "label": "Explain how the blue color happened.", "consequence": "The animals learn what happened and can decide together how to respond."},
+          {"id": "pretend", "label": "Pretend to be someone important.", "consequence": "The animals believe the story for a while, but trust becomes harder to repair later."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": 1
+      },
+      {
+        "passage": "The jackal's story has changed how the other animals treat it. One evening, familiar calls from other jackals echo through the forest.",
+        "decision_point": "What might help the jackal make a better next choice?",
+        "choices": [
+          {"id": "admit", "label": "Admit the pretending and explain why.", "consequence": "The jackal takes responsibility; rebuilding trust may take time and honest actions."},
+          {"id": "repair", "label": "Start by correcting the story and asking how to make things right.", "consequence": "The jackal opens a path toward repair without expecting instant forgiveness."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": null
+      }
+    ],
+    "ending_options": ["Talk about honesty without judging the jackal.", "Pause here.", "Return to the companion."],
+    "age_adaptation_notes": "Do not shame a child's identity, appearance, or fear. Focus on actions and possible repair.",
+    "cultural_context": "A well-known animal tale associated with Panchatantra collections; details and interpretations vary by version.",
+    "content_review_status": "PROVISIONAL — not checked against a supplied source edition; review locally before presenting as a verified adaptation."
+  },
+  {
+    "story_id": "loyal_mongoose",
+    "title": "The Loyal Mongoose",
+    "source_name": "Provisional Panchatantra-inspired retelling; source document not supplied",
+    "source_reference": null,
+    "original_story_text": "In a familiar version, a mongoose protects a baby from a snake. A caregiver returns, sees blood on the mongoose, and reacts before checking what happened. The mongoose is harmed, and the caregiver then discovers the snake. This provisional retelling treats the ending as a tragedy, not as a model for discipline, and emphasizes pausing, checking, and seeking help.",
+    "short_summary": "A rushed assumption leads a caregiver to misunderstand a mongoose that had protected a baby.",
+    "central_values": ["care", "trust", "checking facts", "pausing before reacting"],
+    "possible_real_life_dilemmas": ["Misunderstanding what happened", "Feeling angry before knowing the facts", "Repairing a rushed reaction"],
+    "positive_behaviours_to_recognize": ["Checking what happened before deciding", "Asking a calm question", "Apologizing and making things safer after a mistake"],
+    "alternative_choices": ["Pause and look for more information", "Ask another trusted adult to help", "Make sure everyone is safe before responding"],
+    "reflection_questions": ["What could the caregiver have checked first?", "What can someone do after reacting too quickly?"],
+    "interactive_story_beats": [
+      {
+        "passage": "A caregiver returned home and saw a mongoose near the baby's room. There was blood on the mongoose, but the caregiver did not yet know why.",
+        "decision_point": "What is a careful first step when something looks alarming?",
+        "choices": [
+          {"id": "check", "label": "Make sure the baby is safe, then check what happened.", "consequence": "The caregiver gathers important facts before deciding what to do."},
+          {"id": "help", "label": "Call another trusted adult to help check safely.", "consequence": "Another adult can help everyone stay calm and safe while they learn more."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": 1
+      },
+      {
+        "passage": "The caregiver looks more carefully and discovers that the mongoose had protected the baby from a snake. The first guess was wrong, and the moment cannot be undone.",
+        "decision_point": "What could the caregiver do now?",
+        "choices": [
+          {"id": "repair", "label": "Name the mistake and make the baby's space safe.", "consequence": "The caregiver takes responsibility and focuses on safety and care."},
+          {"id": "learn", "label": "Ask for help and think about how to pause next time.", "consequence": "The caregiver makes a plan to check facts with support before reacting."}
+        ],
+        "open_ended_option": "Or share your own idea.",
+        "next_beat": null
+      }
+    ],
+    "ending_options": ["Pause and talk about checking facts.", "Stop here; this story has a sad ending.", "Return to the companion."],
+    "age_adaptation_notes": "The original tale has a distressing ending. Preview it, allow children to skip it, and never frame harm to the mongoose as justified.",
+    "cultural_context": "Often retold as a warning about hasty judgment; versions differ. This adaptation explicitly rejects violence as a response.",
+    "content_review_status": "PROVISIONAL — not checked against a supplied source edition; review locally before presenting as a verified adaptation."
+  }
+]
