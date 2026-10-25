@@ -4,9 +4,9 @@ from types import SimpleNamespace
 
 from app_logic import load_stories
 from services.sarvam_client import (
+    _speech_to_text,
+    _text_to_speech,
     chat_completion,
-    speech_to_text,
-    text_to_speech,
     translate_story_beat,
 )
 
@@ -72,7 +72,7 @@ class SarvamServiceTests(unittest.TestCase):
                 SimpleNamespace(transcript="నమస్కారం"),
             )[-1]
         )
-        result = speech_to_text(
+        result = _speech_to_text(
             SimpleNamespace(speech_to_text=stt),
             b"wav audio",
             "te-IN",
@@ -91,7 +91,7 @@ class SarvamServiceTests(unittest.TestCase):
             name="recording.wav",
             type="audio/wav",
         )
-        result = speech_to_text(
+        result = _speech_to_text(
             SimpleNamespace(speech_to_text=SimpleNamespace(transcribe=transcribe)),
             recording,
             "en-IN",
@@ -109,7 +109,7 @@ class SarvamServiceTests(unittest.TestCase):
                 SimpleNamespace(audios=[base64.b64encode(b"mp3 audio").decode("ascii")]),
             )[-1]
         )
-        result = text_to_speech(
+        result = _text_to_speech(
             SimpleNamespace(text_to_speech=tts),
             "Hello there.",
             "en-IN",

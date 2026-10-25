@@ -362,7 +362,6 @@ def render_chat() -> None:
                     try:
                         with st.spinner("Preparing audio…"):
                             st.session_state.audio_replies[audio_key] = text_to_speech(
-                                get_client(),
                                 item["content"],
                                 LANGUAGES[st.session_state.language],
                             )
@@ -410,7 +409,6 @@ def render_chat() -> None:
                 st.session_state.voice_recording_error = None
                 try:
                     transcript = speech_to_text(
-                        get_client(),
                         audio_bytes,
                         LANGUAGES[st.session_state.language],
                     )

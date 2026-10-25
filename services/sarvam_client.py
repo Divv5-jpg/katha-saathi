@@ -1,7 +1,9 @@
 import base64
 import binascii
 import json
+import os
 from typing import Any
+from pathlib import Path
 
 from sarvamai import SarvamAI
 
@@ -12,6 +14,7 @@ MAX_HISTORY_MESSAGES = 12
 
 __all__ = [
     "SarvamServiceError",
+    "SarvamClient",
     "chat_completion",
     "create_client",
     "speech_to_text",
@@ -162,7 +165,7 @@ def translate_story_beat(
         raise _safe_error(exc) from None
 
 
-def speech_to_text(
+def _speech_to_text(
     client: SarvamAI,
     audio_file: Any,
     language_code: str,
@@ -201,7 +204,7 @@ def speech_to_text(
         raise _safe_error(exc) from None
 
 
-def text_to_speech(client: SarvamAI, text: str, language_code: str) -> bytes:
+def _text_to_speech(client: SarvamAI, text: str, language_code: str) -> bytes:
     if not text.strip():
         raise SarvamServiceError("There is no reply to read aloud yet.")
     try:
@@ -228,8 +231,53 @@ def transcribe_audio(
     audio: bytes,
     language_code: str,
 ) -> str:
-    return speech_to_text(client, audio, language_code, filename)
+    return _speech_to_text(client, audio, language_code, filename)
 
 
 def synthesize_speech(client: SarvamAI, text: str, language_code: str) -> bytes:
-    return text_to_speech(client, text, language_code)
+    return _text_to_speech(client, text, language_code)
+
+
+class SarvamClient:
+    """Convenience client for voice helpers, using the configured server-side key."""
+
+    def __init__(self):
+        api_key = os.environ.get("SARVAM_API_KEY", "").strip()
+        if not api_key:
+            env_path = Path(__file__).resolve().parents[1] / ".env"
+            if env_path.is_file():
+                for line in env_path.read_text(encoding="utf-8").splitlines():
+                    name, separator, value = line.partition("=")
+                    if separator and name.strip() == "SARVAM_API_KEY":
+                        api_key = value.strip().strip("\"'")
+                        break
+
+        if not api_key:
+            try:
+                import streamlit as st
+                from streamlit.errors import StreamlitSecretNotFoundError
+            except ImportError:
+                pass
+            else:
+                try:
+                    api_key = st.secrets.get("SARVAM_API_KEY", "")
+                except StreamlitSecretNotFoundError:
+                    pass
+
+        self._client = create_client(api_key or "")
+
+    def speech_to_text(self, audio_file: Any, language_code: str = "en-IN") -> str:
+        return _speech_to_text(self._client, audio_file, language_code)
+
+    def text_to_speech(self, text: str, language_code: str = "en-IN") -> bytes:
+        return _text_to_speech(self._client, text, language_code)
+
+
+def speech_to_text(audio_file: Any, language_code: str = "en-IN") -> str:
+    client = SarvamClient()
+    return client.speech_to_text(audio_file, language_code)
+
+
+def text_to_speech(text: str, language_code: str = "en-IN") -> bytes:
+    client = SarvamClient()
+    return client.text_to_speech(text, language_code)
