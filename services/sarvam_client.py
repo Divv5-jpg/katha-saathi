@@ -10,6 +10,17 @@ CHAT_MODEL = "sarvam-105b-conversations"
 MAX_AUDIO_BYTES = 10 * 1024 * 1024
 MAX_HISTORY_MESSAGES = 12
 
+__all__ = [
+    "SarvamServiceError",
+    "chat_completion",
+    "create_client",
+    "speech_to_text",
+    "text_to_speech",
+    "transcribe_audio",
+    "synthesize_speech",
+    "translate_story_beat",
+]
+
 
 class SarvamServiceError(RuntimeError):
     """A safe, user-facing Sarvam API error."""
